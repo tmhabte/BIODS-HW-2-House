@@ -53,6 +53,8 @@ def draw_window(
         
     def draw_frame():
         t.penup()
+        t.color("black", "white")
+        t.begin_fill()
         t.goto(lower_left)
         t.setheading(0)
         t.pendown()
@@ -64,9 +66,10 @@ def draw_window(
         t.left(90)
         t.forward(height)
         t.penup()
+        t.end_fill()
     
     t.penup()
     t.goto(lower_left)
+    draw_frame()
     draw_center_height()
     draw_center_width()
-    draw_frame()

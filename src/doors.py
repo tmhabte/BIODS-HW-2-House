@@ -29,8 +29,8 @@ def draw_door(start_pos_x, start_pos_y, height, scale = 0.4):
     Draws a door and doorknob
     :param start_pos_x: x position to begin drawing (lower left corner)
     :param start_pos_y: y position to begin drawing (lower left corner)
-    :param height:
-    :param width:
+    :param height: height of the door
+    :param scale: ratio of door width to height
     :return: None- draws
     '''
     width = height * scale
@@ -80,19 +80,24 @@ def draw_garage_door(start_pos_x, start_pos_y, height, num_lines, scale = 2.5):
         draw_garage_lines(start_pos_x, start_pos_y + (height*(i+1))/num_lines, start_pos_x + width)
 
 
-turtle.color('pink', 'tan')
+        
+if __name__ == "__main__":
+    """ Demonstrate how doors appear.
+    """
+    
+    turtle.color('pink', 'tan')
 
-# Sample parameters
-door_height = 50
-door_x = 10
-door_y = 0
+    # Sample parameters
+    door_height = 50
+    door_x = 10
+    door_y = 0
 
-garage_x = -200
-garage_y = 0
-garage_height = door_height * 1.3
-garage_lines = 4
+    garage_x = -200
+    garage_y = 0
+    garage_height = door_height * 1.3
+    garage_lines = 4
 
-draw_door(door_x,door_y,door_height)
-draw_garage_door(garage_x, garage_y, garage_height, garage_lines)
+    draw_door(door_x,door_y,door_height)
+    draw_garage_door(garage_x, garage_y, garage_height, garage_lines)
 
-turtle.done()
+    turtle.done()
