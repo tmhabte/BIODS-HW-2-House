@@ -5,6 +5,9 @@ import src.windows as windows
 import src.tree_cloud as tree_cloud
 
 def run_all_tests():
+    '''
+    Runs all test. Test drawing rectangle function and drawing circle. Compares output canvases (.ps files) with originals
+    '''
     test_rectangle()
     test_circle()
 
@@ -17,7 +20,7 @@ def test_rectangle():
     doors.draw_rectangle(start_pos_x, start_pos_y, height, width)
     rect_draw = turtle.getscreen()
     rect_draw.getcanvas().postscript(file=r"test/test/test_rectangle.ps")
-    assert open(r"test/test/test_rectangle.ps").readlines()[10:] == open(r"test/true/true_rectangle.ps").readlines()[10:]
+    assert open(r"test/test/test_rectangle.ps").readlines()[10:] == open(r"test/true/true_rectangle.ps").readlines()[10:] # Skip metadata, first 10 lines
 
 def test_circle():
     turtle.clear()
