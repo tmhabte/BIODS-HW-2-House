@@ -5,14 +5,19 @@ Date:		January 23, 2023
 For:		BIODS 253
 """
 
-import turtle as t
+import turtle
 from typing import Tuple
+import src.doors as doors
 
+RIGHT_DIRECTION=0
+UP_DIRECTION=90
 
 def draw_window(
     lower_left: Tuple[float, float],
     width: float,
-    height: float
+    height: float,
+    color = 'white',
+    outline_color= 'black'
 ):
     """Draw a window in a turtle scene.
     
@@ -34,42 +39,30 @@ def draw_window(
 
     def draw_center_height():
         center_height = lower_left[1] + (height/2)
-        t.penup()
-        t.goto(lower_left[0], center_height)
-        t.setheading(0)
-        t.pendown()
-        t.forward(width)
-        t.penup()
+        turtle.penup()
+        turtle.goto(lower_left[0], center_height)
+        turtle.setheading(RIGHT_DIRECTION)
+        turtle.pendown()
+        turtle.forward(width)
+        turtle.penup()
         
 
     def draw_center_width():
         center_width = lower_left[0] + (width/2)
-        t.penup()
-        t.goto(center_width, lower_left[1])
-        t.setheading(90)
-        t.pendown()
-        t.forward(height)
-        t.penup()
-        
-    def draw_frame():
-        t.penup()
-        t.color("black", "white")
-        t.begin_fill()
-        t.goto(lower_left)
-        t.setheading(0)
-        t.pendown()
-        t.forward(width)
-        t.left(90)
-        t.forward(height)
-        t.left(90)
-        t.forward(width)
-        t.left(90)
-        t.forward(height)
-        t.penup()
-        t.end_fill()
-    
-    t.penup()
-    t.goto(lower_left)
-    draw_frame()
+        turtle.penup()
+        turtle.goto(center_width, lower_left[1])
+        turtle.setheading(UP_DIRECTION)
+        turtle.pendown()
+        turtle.forward(height)
+        turtle.penup()
+
+    turtle.penup()
+    turtle.goto(lower_left)
+
+    turtle.color(outline_color, color)
+    turtle.begin_fill()
+    doors.draw_rectangle(lower_left[0], lower_left[1], height, width)
+    turtle.end_fill()
+
     draw_center_height()
     draw_center_width()
