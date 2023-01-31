@@ -1,5 +1,6 @@
 import turtle
 
+
 def fill_circle(radius, color):
     '''
     Draws a filled in circle
@@ -11,6 +12,7 @@ def fill_circle(radius, color):
     turtle.begin_fill()
     turtle.circle(radius)
     turtle.end_fill()
+
 
 def draw_rectangle(start_pos_x, start_pos_y, height, width):
     '''
@@ -25,7 +27,7 @@ def draw_rectangle(start_pos_x, start_pos_y, height, width):
     turtle.setpos(start_pos_x, start_pos_y)
     turtle.pendown()
     turtle.seth(0)
-    turtle.begin_fill
+    turtle.begin_fill()
     turtle.forward(width)
     turtle.left(90)
     turtle.forward(height)

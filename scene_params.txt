@@ -7,3 +7,98 @@ house_height = 300
 # Roof Width
 roof_width = 850
 
+# Door height
+door_height = 100
+
+# Door Left Offset (offset from left wall of house)
+door_left_offset = 75
+
+# Garage Door Height
+garage_door_height = 150
+
+# Garage Door 1 Left Offset (offset from left wall of house)
+garage_1_left_offset = 300
+
+# Garage Door 2 Left Offset (offset from left wall of house)
+garage_2_left_offset = 500
+
+# Window 1 Height
+window_1_height = 50
+
+# Window 1 Width
+window_1_width = 50
+
+# Window 1 Horizontal Offset (offset from left wall of house)
+window_1_horizontal_offset = 150
+
+# Window 1 Vertical Offset (offset from bottom wall of house)
+window_1_vertical_offset = 100
+
+# Window 2 Height
+window_2_height = 50
+
+# Window 2 Width
+window_2_width = 50
+
+# Window 2 Horizontal Offset (offset from left wall of house)
+window_2_horizontal_offset = 150
+
+# Window 2 Vertical Offset (offset from bottom wall of house)
+window_2_vertical_offset = 225
+
+# Window 3 Height
+window_3_height = 50
+
+# Window 3 Width
+window_3_width = 50
+
+# Window 3 Horizontal Offset (offset from left wall of house)
+window_3_horizontal_offset = 350
+
+# Window 3 Vertical Offset (offset from bottom wall of house)
+window_3_vertical_offset = 225
+
+# Window 4 Height
+window_4_height = 50
+
+# Window 4 Width
+window_4_width = 50
+
+# Window 4 Horizontal Offset (offset from left wall of house)
+window_4_horizontal_offset = 550
+
+# Window 4 Vertical Offset (offset from bottom wall of house)
+window_4_vertical_offset = 225
+
+# Tree 1 Horizontal Offset (offset from left wall of house; positive is right)
+tree_1_horizontal_offset = -150
+
+# Tree 1 Vertical Offset (offset from bottom of house; positive is up)
+tree_1_vertical_offset = 0
+
+# Tree 1 Trunk Width
+tree_1_trunk_width = 60
+
+# Tree 1 Trunk Height
+tree_1_trunk_height = 180
+
+# Tree 2 Horizontal Offset (offset from left wall of house; positive is right)
+tree_2_horizontal_offset = -450
+
+# Tree 2 Vertical Offset (offset from bottom of house; positive is up)
+tree_2_vertical_offset = 0
+
+# Tree 2 Trunk Width
+tree_2_trunk_width = 60
+
+# Tree 2 Trunk Height
+tree_2_trunk_height = 180
+
+# Cloud Horizontal Offset (offset from left wall of house; positive is right)
+cloud_horizontal_offset = -300
+
+# Cloud Vertical Offset (offset from bottom of house; positive is up)
+cloud_vertical_offset = 500
+
+# Cloud Bump Radius
+cloud_bump_radius = 70
