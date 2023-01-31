@@ -1,14 +1,14 @@
-import turtle as t
+import turtle
 from typing import Tuple
 
 import src.doors as doors
 import src.windows as windows
-import src.turtle_tree_cloud as tree_cloud
+import src.tree_cloud as tree_cloud
 
 screen_dim = 500
-t.Screen().screensize(screen_dim, screen_dim)
-t.setworldcoordinates(-screen_dim, -screen_dim, t.window_width() + screen_dim, t.window_height() + screen_dim)
-t.Screen().bgcolor("lightblue")
+turtle.Screen().screensize(screen_dim, screen_dim)
+turtle.setworldcoordinates(-screen_dim, -screen_dim, turtle.window_width() + screen_dim, turtle.window_height() + screen_dim)
+turtle.Screen().bgcolor("lightblue")
 
 def create_scene(start_coord: Tuple[float, float] = (screen_dim / 3, screen_dim / 3)):
     """Create scene of house that includes two garages, one door, and four windows, two trees, and a cloud.
@@ -29,30 +29,30 @@ def create_scene(start_coord: Tuple[float, float] = (screen_dim / 3, screen_dim 
     def draw_base():
         """Draw the base of the house.
         """
-        t.color('black', "lightgray")
-        t.begin_fill()
+        turtle.color('black', "lightgray")
+        turtle.begin_fill()
         doors.draw_rectangle(start_coord[0], start_coord[1], house_height, house_width)
-        t.end_fill()
+        turtle.end_fill()
 
     def draw_roof():
         """Draw the roof of the house.
         """
-        t.color('black', "brown")
-        t.setpos(roof_bottom_left)
-        t.begin_fill()
-        t.setheading(0)
-        t.forward(roof_width)
-        t.left(135)
-        t.forward(roof_angled_dim)
-        t.left(90)
-        t.forward(roof_angled_dim)
-        t.end_fill()
+        turtle.color('black', "brown")
+        turtle.setpos(roof_bottom_left)
+        turtle.begin_fill()
+        turtle.setheading(0)
+        turtle.forward(roof_width)
+        turtle.left(135)
+        turtle.forward(roof_angled_dim)
+        turtle.left(90)
+        turtle.forward(roof_angled_dim)
+        turtle.end_fill()
 
     # Draw lawn
-    t.color('green')
-    t.begin_fill()
+    turtle.color('green')
+    turtle.begin_fill()
     doors.draw_rectangle(start_coord[0] - 700, start_coord[1] - 700, 700, 2000)
-    t.end_fill()
+    turtle.end_fill()
 
     # Draw the frame of the house
     draw_base()
@@ -70,12 +70,12 @@ def create_scene(start_coord: Tuple[float, float] = (screen_dim / 3, screen_dim 
     windows.draw_window((start_coord[0] + 150, start_coord[1] + house_height * 3 / 4), 50, 50)
     windows.draw_window((start_coord[0] + 350, start_coord[1] + house_height * 3 / 4), 50, 50)
     windows.draw_window((start_coord[0] + 500, start_coord[1] + house_height * 3 / 4), 50, 50)
-    t.end_fill()
+    turtle.end_fill()
 
     # Draw trees
-    t.setheading(0)
-    tree_cloud.draw_tree(start_coord[0] - 150, start_coord[1] + 80, house_height / 5)
-    tree_cloud.draw_tree(start_coord[0] - 450, start_coord[1] + 100, house_height / 5)
+    turtle.setheading(0)
+    tree_cloud.draw_tree(start_coord[0] - 150, start_coord[1], house_height / 5, 3 * house_height / 5)
+    tree_cloud.draw_tree(start_coord[0] - 450, start_coord[1], house_height / 5, 3 * house_height / 5)
 
     # Draw cloud
     tree_cloud.draw_cloud(start_coord[0] - 300, start_coord[1] + 500, 70, color="white")
