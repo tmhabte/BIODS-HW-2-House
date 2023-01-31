@@ -12,7 +12,7 @@ roof of the house. Both entities will be defined with respect to their
 bottom-left corners.
 """
 import turtle
-from .util.shape import draw_rectangle
+from .util.shapes import draw_rectangle
 
 
 def draw_base(start_x, start_y, house_height, house_width):
