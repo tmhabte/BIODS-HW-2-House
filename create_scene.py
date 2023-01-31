@@ -3,7 +3,7 @@ from typing import Tuple
 
 import src.doors as doors
 import src.windows as windows
-import src.turtle_tree_cloud as tree_cloud
+import src.tree_cloud as tree_cloud
 
 screen_dim = 500
 turtle.Screen().screensize(screen_dim, screen_dim)
@@ -74,8 +74,8 @@ def create_scene(start_coord: Tuple[float, float] = (screen_dim / 3, screen_dim 
 
     # Draw trees
     turtle.setheading(0)
-    tree_cloud.draw_tree(start_coord[0] - 150, start_coord[1] + 80, house_height / 5)
-    tree_cloud.draw_tree(start_coord[0] - 450, start_coord[1] + 100, house_height / 5)
+    tree_cloud.draw_tree(start_coord[0] - 150, start_coord[1], house_height / 5, 3 * house_height / 5)
+    tree_cloud.draw_tree(start_coord[0] - 450, start_coord[1], house_height / 5, 3 * house_height / 5)
 
     # Draw cloud
     tree_cloud.draw_cloud(start_coord[0] - 300, start_coord[1] + 500, 70, color="white")
