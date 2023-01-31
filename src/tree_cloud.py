@@ -12,7 +12,7 @@ def fill_circle(size, color):
     turtle.circle(size)
     turtle.end_fill()
 
-def draw_cloud(start_pos_x, start_pos_y, size, color):
+def draw_cloud(start_pos_x, start_pos_y, tuple(dis1m dis), size, color):
     '''
     Draws a cloud
     : param start_pos_x: starting x-position of turtle (Lower left hand corner of cloud)
