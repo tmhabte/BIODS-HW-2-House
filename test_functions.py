@@ -1,8 +1,6 @@
 import turtle
 
-import src.doors as doors
-import src.windows as windows
-import src.tree_cloud as tree_cloud
+from src.util.shapes import *
 
 def run_all_tests():
     '''
@@ -17,19 +15,19 @@ def test_rectangle():
     start_pos_y = 0
     height = 50
     width = 100
-    doors.draw_rectangle(start_pos_x, start_pos_y, height, width)
+    draw_rectangle(start_pos_x, start_pos_y, height, width)
     rect_draw = turtle.getscreen()
-    rect_draw.getcanvas().postscript(file=r"test/test/test_rectangle.ps")
-    assert open(r"test/test/test_rectangle.ps").readlines()[10:] == open(r"test/true/true_rectangle.ps").readlines()[10:] # Skip metadata, first 10 lines
+    rect_draw.getcanvas().postscript(file=r"testdata/test/test_rectangle.ps")
+    assert open(r"testdata/test/test_rectangle.ps").readlines()[10:] == open(r"testdata/true/true_rectangle.ps").readlines()[10:] # Skip metadata, first 10 lines
 
 def test_circle():
     turtle.clear()
     radius= 50
     color= 'blue'
-    tree_cloud.fill_circle(radius, color)
+    fill_circle(radius, color)
     circle_draw = turtle.getscreen()
-    circle_draw.getcanvas().postscript(file=r"test/test/test_circle.ps")
-    assert open("test/test/test_circle.ps").readlines()[10:] == open("test/true/true_circle.ps").readlines()[10:]
+    circle_draw.getcanvas().postscript(file=r"testdata/test/test_circle.ps")
+    assert open("testdata/test/test_circle.ps").readlines()[10:] == open("testdata/true/true_circle.ps").readlines()[10:]
 
 if __name__ == "__main__":
     """Create the house scene.
