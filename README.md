@@ -1,14 +1,21 @@
 # BIODS-HW-2-House
 
-1. Run the command "git clone https://github.com/tmhabte/BIODS-HW-2-House.git" to access the code.
+This repository includes a scene for drawing a basic house.
+For details of the project, please see the design document in `resources/design_document.docx`.
 
-2. Use the command "cd BIODS-HW-2-House" to enter the folder containing the code. 
+### Setup
 
-3. Use the command "bash.make.sh" to generate the correct conda environment.
+1. Run `git clone https://github.com/tmhabte/BIODS-HW-2-House.git` download a copy of this repository.
 
-4. Run the command "conda activate house" to activate the code to activate the newly generated environment.
+2. Enter the repository with `cd BIODS-HW-2-House`.
 
-5. Run the command "create_scene.py" to generate the house drawing.
+3. Run "bash make.sh" to generate a conda environment for this project with Python 3.9.12.
+
+4. Run `conda activate house` to activate the newly generated environment.
+
+5. (OPTIONAL) Adjust the house scene parameters in `scene_params.txt`; we have provided example parameters for you.
+
+5. Run `python create_scene.py` to generate the house drawing.
 
 
 
