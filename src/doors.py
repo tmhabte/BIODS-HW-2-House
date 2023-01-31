@@ -1,28 +1,5 @@
 import turtle
-
-def draw_rectangle(start_pos_x, start_pos_y, height, width):
-    '''
-    Draws a rectangle
-    :param start_pos_x: x position to begin drawing (lower left corner)
-    :param start_pos_y: y position to begin drawing (lower left corner)
-    :param height:
-    :param width:
-    :return: None- draws
-    '''
-    turtle.penup()
-    turtle.setpos(start_pos_x, start_pos_y)
-    turtle.pendown()
-    turtle.seth(0)
-    turtle.begin_fill
-    turtle.forward(width)
-    turtle.left(90)
-    turtle.forward(height)
-    turtle.left(90)
-    turtle.forward(width)
-    turtle.left(90)
-    turtle.forward(height)
-    turtle.end_fill()
-    turtle.penup()
+from .util.shapes import *
 
 def draw_door(start_pos_x, start_pos_y, height, scale = 0.4):
     '''
