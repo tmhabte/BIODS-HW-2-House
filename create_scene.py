@@ -19,7 +19,7 @@ from typing import Tuple, Dict, Union, Optional
 import src.doors as doors
 import src.windows as windows
 import src.tree_cloud as tree_cloud
-import scr.frame as frame
+import src.frame as frame
 
 # Custom global parameters
 SCREEN_DIM = 500
@@ -59,7 +59,7 @@ def read_from_param_file(
     # Parse parameters from file
     params = {}
     for line in lines:
-        if line.startswith("#"):
+        if line.startswith("#") or line == "":
             continue
         key, value = line.split("=")
         params[key.strip()] = float(value.strip())

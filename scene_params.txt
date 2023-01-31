@@ -1,0 +1,9 @@
+# House Width
+house_width = 800
+
+# House Height
+house_height = 300
+
+# Roof Width
+roof_width = 850
+
