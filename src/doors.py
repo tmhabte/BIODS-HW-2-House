@@ -1,6 +1,7 @@
 import turtle
 from .util.shapes import *
 
+
 def draw_door(start_pos_x, start_pos_y, height, scale = 0.4):
     '''
     Draws a door and doorknob
@@ -25,6 +26,7 @@ def draw_door(start_pos_x, start_pos_y, height, scale = 0.4):
     turtle.end_fill()
     turtle.penup()
 
+
 def draw_garage_lines(start_pos_x,start_pos_y, end_pos_x):
     '''
     Draws lines on garage door
@@ -38,7 +40,8 @@ def draw_garage_lines(start_pos_x,start_pos_y, end_pos_x):
     turtle.setpos(end_pos_x, start_pos_y)
     turtle.penup()
 
-def draw_garage_door(start_pos_x, start_pos_y, height, num_lines, scale = 2.5):
+
+def draw_garage_door(start_pos_x, start_pos_y, height, num_lines=4, scale = 1.1):
     '''
     Draws garage door
     :param start_pos_x: x position to begin drawing (lower left corner)
@@ -57,7 +60,6 @@ def draw_garage_door(start_pos_x, start_pos_y, height, num_lines, scale = 2.5):
         draw_garage_lines(start_pos_x, start_pos_y + (height*(i+1))/num_lines, start_pos_x + width)
 
 
-        
 if __name__ == "__main__":
     """ Demonstrate how doors appear.
     """
