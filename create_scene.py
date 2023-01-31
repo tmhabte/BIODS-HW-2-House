@@ -66,10 +66,10 @@ def create_scene(start_coord: Tuple[float, float] = (screen_dim / 3, screen_dim 
     doors.draw_garage_door(start_coord[0] + 500, start_coord[1], house_height * 1 / 2, 4, scale=1.1)
 
     # Draw windows
-    windows.draw_window((start_coord[0] + 150, start_coord[1] + 100), 50, 50)
-    windows.draw_window((start_coord[0] + 150, start_coord[1] + house_height * 3 / 4), 50, 50)
-    windows.draw_window((start_coord[0] + 350, start_coord[1] + house_height * 3 / 4), 50, 50)
-    windows.draw_window((start_coord[0] + 500, start_coord[1] + house_height * 3 / 4), 50, 50)
+    windows.draw_window(start_coord[0] + 150, start_coord[1] + 100, 50, 50)
+    windows.draw_window(start_coord[0] + 150, start_coord[1] + house_height * 3 / 4, 50, 50)
+    windows.draw_window(start_coord[0] + 350, start_coord[1] + house_height * 3 / 4, 50, 50)
+    windows.draw_window(start_coord[0] + 500, start_coord[1] + house_height * 3 / 4, 50, 50)
     turtle.end_fill()
 
     # Draw trees
