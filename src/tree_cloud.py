@@ -1,18 +1,7 @@
 import turtle
-import src.doors as doors
-DEFAULT_DIRECTION=0
+from .util.shapes import *
 
-def fill_circle(radius, color):
-    '''
-    Draws a filled in circle
-    : param radius: radius of circle
-    : param color: color of circle
-    '''
-    turtle.penup()
-    turtle.color(color)
-    turtle.begin_fill()
-    turtle.circle(radius)
-    turtle.end_fill()
+DEFAULT_DIRECTION=0
 
 def row_of_circles(num_circles, radius, color):
     '''
@@ -60,7 +49,7 @@ def draw_tree(start_pos_x, start_pos_y, trunk_width, trunk_height, trunk_color='
     # Draw Tree trunk
     turtle.color(trunk_color)
     turtle.begin_fill()
-    doors.draw_rectangle(start_pos_x, start_pos_y, trunk_height, trunk_width)
+    draw_rectangle(start_pos_x, start_pos_y, trunk_height, trunk_width)
     turtle.end_fill()
 
     # Draw foliage
