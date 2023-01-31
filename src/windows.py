@@ -6,7 +6,7 @@ For:		BIODS 253
 """
 
 import turtle
-import src.doors as doors
+from .util.shapes import *
 
 RIGHT_DIRECTION=0
 UP_DIRECTION=90
@@ -61,7 +61,7 @@ def draw_window(
 
     turtle.color(outline_color, color)
     turtle.begin_fill()
-    doors.draw_rectangle(start_pos_x, start_pos_y, height, width)
+    draw_rectangle(start_pos_x, start_pos_y, height, width)
     turtle.end_fill()
 
     draw_center_height()
