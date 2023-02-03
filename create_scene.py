@@ -23,7 +23,7 @@ import src.tree_cloud as tree_cloud
 import src.frame as frame
 
 # Custom global parameters
-SCREEN_DIM = 500
+SCREEN_DIM = 1000
 Numeric = Union[float, int]
 REQUIRED_PARAMS = [
     "house_width", "house_height", "roof_width", "door_height",
@@ -84,41 +84,24 @@ def read_from_param_file(
     return params
 
 
-def create_scene(
-    params: Dict[str, Numeric],
-    start_coord: Tuple[float, float] = (SCREEN_DIM / 3, SCREEN_DIM / 3)
-):
-    """Create scene of house that includes required components.
-    
-    Notes
-    -----
-    Required components include: two garages, one door, and four windows,
-    two trees, and a cloud.
-
-    Parameters
+def draw_house(params: Dict[str, Numeric],
+    start_coord: Tuple[float, float] = (SCREEN_DIM / 3, SCREEN_DIM / 3)):
+    """Draws a house with a roof, 4 windows, 3 garage doors, one door.  
+   
+   Parameters
     ----------
     start_coord : Tuple[float, float]
         Bottom-left corner of the BASE of the house.
     params : Dict[str, Numeric]
         A dictionary of parameters specifying the dimensions of the house.
     """
+    #First, we compute the roof bottom left coordinates
     roof_bottom_left = (
         start_coord[0] - (
                 params["roof_width"] - params["house_width"]
         )/2, start_coord[1] +
         params["house_height"]
     )
-
-    # Draw lawn
-    turtle.color('green')
-    turtle.begin_fill()
-    doors.draw_rectangle(
-        start_pos_x=start_coord[0] - 3 * SCREEN_DIM,
-        start_pos_y=start_coord[1] - 3 * SCREEN_DIM,
-        height=3 * SCREEN_DIM,
-        width=6 * SCREEN_DIM
-    )
-    turtle.end_fill()
 
     # Draw the frame of the house
     frame.draw_base(
@@ -136,37 +119,61 @@ def create_scene(
     )
 
     # Draw two garage doors
-    doors.draw_garage_door(
-        start_coord[0] + params["garage_1_left_offset"], start_coord[1],
-        params["garage_door_height"]
-    )
-    doors.draw_garage_door(
-        start_coord[0] + params["garage_2_left_offset"], start_coord[1],
-        params["garage_door_height"]
-    )
-
+    coordinates_garage_doors = [(start_coord[0] + params["garage_1_left_offset"], start_coord[1]), 
+                                (start_coord[0] + params["garage_2_left_offset"], start_coord[1])]
+    
+    for x, y in coordinates_garage_doors:
+        doors.draw_garage_door(x, y, params["garage_door_height"])
+   
     # Draw windows
-    windows.draw_window(
-        start_coord[0] + params["window_1_horizontal_offset"],
-        start_coord[1] + params["window_1_vertical_offset"],
-        params["window_1_height"], params["window_1_width"]
-    )
-    windows.draw_window(
-        start_coord[0] + params["window_2_horizontal_offset"],
-        start_coord[1] + params["window_2_vertical_offset"],
-        params["window_2_height"], params["window_2_width"]
-    )
-    windows.draw_window(
-        start_coord[0] + params["window_3_horizontal_offset"],
-        start_coord[1] + params["window_3_vertical_offset"],
-        params["window_3_height"], params["window_3_width"]
-    )
-    windows.draw_window(
-        start_coord[0] + params["window_4_horizontal_offset"],
-        start_coord[1] + params["window_4_vertical_offset"],
-        params["window_4_height"], params["window_4_width"]
+    for i in range(1, 5):
+        x = start_coord[0] +  params["window_{}_horizontal_offset".format(i)]
+        y = start_coord[1] +  params["window_{}_vertical_offset".format(i)]
+        height = params["window_{}_height".format(i)]
+        width = params["window_{}_width".format(i)]
+        windows.draw_window(x, y, height, width)
+
+    turtle.end_fill()
+
+def create_scene(
+    render_type,
+    params: Dict[str, Numeric],
+    start_coord: Tuple[float, float] = (SCREEN_DIM / 3, SCREEN_DIM / 3)):
+    """Create scene of house that includes required components.
+    
+    Notes
+    -----
+    Required components include: two garages, one door, and four windows,
+    two trees, and a cloud.
+
+    Parameters
+    ----------
+    start_coord : Tuple[float, float]
+        Bottom-left corner of the BASE of the house.
+    params : Dict[str, Numeric]
+        A dictionary of parameters specifying the dimensions of the house.
+    """
+    # Draw lawn
+    turtle.color('green')
+    turtle.begin_fill()
+    doors.draw_rectangle(
+        start_pos_x=start_coord[0] - 3 * SCREEN_DIM,
+        start_pos_y=start_coord[1] - 3 * SCREEN_DIM,
+        height=3 * SCREEN_DIM,
+        width=6 * SCREEN_DIM
     )
     turtle.end_fill()
+
+    #Draw houses
+    coordinates_x = [start_coord[0]]
+    y = start_coord[1]
+    if (render_type == "original"):
+        for x in coordinates_x:
+            draw_house(params, (x, y))
+    else :
+        coordinates_x += [start_coord[0] + 1.2 * params["house_width"], start_coord[0] + 2.4 * params["house_width"]]
+        for x in coordinates_x:
+            draw_house(params, (x, y))
 
     # Draw trees
     turtle.setheading(0)
@@ -191,9 +198,10 @@ def create_scene(
 if __name__ == "__main__":
     """Create the house scene.
     """
+    render_type = "before_earthquake"
     turtle.Screen().screensize(SCREEN_DIM, SCREEN_DIM)
     turtle.setworldcoordinates(-SCREEN_DIM, -SCREEN_DIM, turtle.window_width() + SCREEN_DIM, turtle.window_height() + SCREEN_DIM)
     turtle.Screen().bgcolor("lightblue")
     params = read_from_param_file()
-    create_scene(params)
+    create_scene(render_type, params)
     turtle.done()
