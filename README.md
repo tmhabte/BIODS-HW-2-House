@@ -15,7 +15,10 @@ For details of the project, please see the design document in `resources/design_
 
 5. (OPTIONAL) Adjust the house scene parameters in `scene_params.txt`; we have provided example parameters for you.
 
-5. Run `python create_scene.py` to generate the house drawing.
+5. Run `python create_scene.py -t` followed by one of the three options:
+    a. original
+    b. without_earthquake
+    c. with_earthquake
 
 
 
