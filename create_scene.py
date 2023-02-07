@@ -149,8 +149,11 @@ def draw_house(params: Dict[str, Numeric], start_coord: Tuple[float, float] = (S
         y = start_coord[1] + params["window_{}_vertical_offset".format(i)]
         height = params["window_{}_height".format(i)]
         width = params["window_{}_width".format(i)]
-        windows.draw_window(x, y, height, width)
-
+        # Make two of the windows cracked only if there has been an earthquake
+        if (render_type == "with_earthquake" and i%2==0):
+            windows.draw_window(x, y, height, width, crack=True)
+        else:
+            windows.draw_window(x, y, height, width)
     turtle.end_fill()
 
 

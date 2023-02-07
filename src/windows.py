@@ -7,6 +7,7 @@ For:		BIODS 253
 
 import turtle
 from .util.shapes import *
+import math
 
 RIGHT_DIRECTION=0
 UP_DIRECTION=90
@@ -17,7 +18,8 @@ def draw_window(
     width: float,
     height: float,
     color = 'white',
-    outline_color= 'black'
+    outline_color= 'black',
+    crack = False
 ):
     """Draw a window in a turtle scene.
     
@@ -35,6 +37,8 @@ def draw_window(
         Width of the window
     height : float
         Height of the window
+    crack : Boolean
+        Whether or not to put a crack through the window
     """
 
     def draw_center_height():
@@ -56,6 +60,14 @@ def draw_window(
         turtle.forward(height)
         turtle.penup()
 
+    def draw_crack():
+        turtle.penup()
+        turtle.goto(start_pos_x, start_pos_y)
+        turtle.setheading(45)
+        turtle.pendown()
+        turtle.forward(math.sqrt(height*height + width*width))
+        turtle.penup()
+
     turtle.penup()
     turtle.goto(start_pos_x, start_pos_y)
 
@@ -66,3 +78,6 @@ def draw_window(
 
     draw_center_height()
     draw_center_width()
+
+    if(crack):
+        draw_crack()
