@@ -111,19 +111,28 @@ def read_from_param_file(path: Optional[str] = "scene_params.txt") -> Dict[str, 
     return params
 
 
-def draw_house(params: Dict[str, Numeric], start_coord: Tuple[float, float] = (SCREEN_DIM / 3, SCREEN_DIM / 3)):
-    """Draws a house with a roof, 4 windows, 3 garage doors, one door.
+def draw_house(params: Dict[str, Numeric], start_coord: Tuple[float, float] =
+(SCREEN_DIM / 3, SCREEN_DIM / 3), scale: [Numeric] = 1):
+   """Draws a house with a roof, 4 windows, 3 garage doors, one door.
 
     Parameters
      ----------
+     scale : scale of house (0 to 1)
+
      start_coord : Tuple[float, float]
          Bottom-left corner of the BASE of the house.
      params : Dict[str, Numeric]
          A dictionary of parameters specifying the dimensions of the house.
     """
+    
+    for key in params:
+        params[key]*=scale
+
     # First, we compute the roof bottom left coordinates
     roof_bottom_left = (
-        start_coord[0] - (params["roof_width"] - params["house_width"]) / 2,
+        start_coord[0] - (params["roof_width"] - params["house_width"])
+        / 2,
+
         start_coord[1] + params["house_height"],
     )
 
@@ -189,20 +198,25 @@ def create_scene(
     coordinates_x = [start_coord[0]]
     y = start_coord[1]
     if render_type == "original":
-        for x in coordinates_x:
-            draw_house(params, (x, y))
+
+        draw_house(params, (coordinates_x[0], y))
+
     elif render_type == "without_earthquake":
         coordinates_x += [start_coord[0] + 1.2 * params["house_width"], start_coord[0] + 2.4 * params["house_width"]]
-        for x in coordinates_x:
-            draw_house(params, (x, y))
+        draw_house(params, (coordinates_x[0], y))
+        draw_house(params, (coordinates_x[1], y), scale=0.9)
+        draw_house(params, (coordinates_x[2], y))
     elif render_type == "with_earthquake":
         # DUPLICATED CODE -- better to change
         coordinates_x += [
             start_coord[0] + 1.2 * params["house_width"],
             start_coord[0] + 2.4 * params["house_width"],
         ]
-        for x in coordinates_x:
-            draw_house(params, (x, y))
+        
+        draw_house(params, (coordinates_x[0], y))
+        draw_house(params, (coordinates_x[1], y), scale=0.9)
+        draw_house(params, (coordinates_x[2], y))
+
     else:
         raise Exception("Unknown render type for image")
 
