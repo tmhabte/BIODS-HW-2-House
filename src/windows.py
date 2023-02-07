@@ -19,7 +19,7 @@ def draw_window(
     height: float,
     color = 'white',
     outline_color= 'black', 
-    angle = 0
+    angle = 0,
     crack = False
 ):
     """Draw a window in a turtle scene.

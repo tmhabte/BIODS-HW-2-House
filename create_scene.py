@@ -176,7 +176,7 @@ def draw_house(params: Dict[str, Numeric],
 
 
 def create_scene(
-    render_type, params: Dict[str, Numeric], start_coord: Tuple[float, float] = (SCREEN_DIM / 3, SCREEN_DIM / 3)
+    render_type, params: Dict[str, Numeric], start_coord: Tuple[float, float] = (SCREEN_DIM / 3, SCREEN_DIM / 3), angle = 0
 ):
     """Create scene of house that includes required components.
 
@@ -223,8 +223,8 @@ def create_scene(
             start_coord[0] + 2.4 * params["house_width"],
         ]
 
-        draw_house(params, (coordinates_x[0], y), earthquake = True)
-        draw_house(params, (coordinates_x[1], y), scale=0.9, earthquake = True)
+        draw_house(params, (coordinates_x[0], y), earthquake = False)
+        draw_house(params, (coordinates_x[1], y), scale=0.9, earthquake = False)
         draw_house(params, (coordinates_x[2], y), angle = angle, earthquake = True)
         turtle.color('green')
         turtle.begin_fill()
