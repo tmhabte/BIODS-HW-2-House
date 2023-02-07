@@ -38,26 +38,42 @@ def draw_window(
     """
 
     def draw_center_height():
-        center_height = start_pos_y + (height/2)
+        # center_height = start_pos_y + (height/2)
         turtle.penup()
-        turtle.goto(start_pos_x, center_height)
-        turtle.setheading(RIGHT_DIRECTION)
+        turtle.back(height/2)
+        turtle.left(90)
         turtle.pendown()
         turtle.forward(width)
+        turtle.right(90)
         turtle.penup()
+        # turtle.goto(start_pos_x, center_height)
+        # turtle.setheading(RIGHT_DIRECTION)
+        # turtle.pendown()
+        # turtle.forward(width)
+        # turtle.penup()
         
 
     def draw_center_width():
-        center_width = start_pos_x + (width/2)
-        turtle.penup()
-        turtle.goto(center_width, start_pos_y)
-        turtle.setheading(UP_DIRECTION)
+        turtle.forward(height/2)
+        turtle.right(90)
+        turtle.forward(height/2)
+        turtle.right(90)
         turtle.pendown()
         turtle.forward(height)
+        # center_width = start_pos_x + (width/2)
+        # turtle.penup()
+        # turtle.goto(center_width, start_pos_y)
+        # turtle.setheading(UP_DIRECTION)
+        # turtle.pendown()
+        # turtle.forward(height)
         turtle.penup()
 
     turtle.penup()
-    turtle.goto(start_pos_x, start_pos_y)
+    current_pos_x = turtle.pos()[0]
+    current_pos_y = turtle.pos()[1]
+    turtle.forward(current_pos_y - start_pos_y)
+    turtle.left(90)
+    turtle.forward(start_pos_x - current_pos_x)
 
     turtle.color(outline_color, color)
     turtle.begin_fill()
