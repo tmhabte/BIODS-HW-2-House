@@ -21,6 +21,7 @@ import src.doors as doors
 import src.windows as windows
 import src.tree_cloud as tree_cloud
 import src.frame as frame
+from src.util.shapes import *
 
 # Custom global parameters
 SCREEN_DIM = 1000
@@ -85,7 +86,7 @@ def read_from_param_file(
 
 
 def draw_house(params: Dict[str, Numeric],
-    start_coord: Tuple[float, float] = (SCREEN_DIM / 3, SCREEN_DIM / 3)):
+    start_coord: Tuple[float, float] = (SCREEN_DIM / 3, SCREEN_DIM / 3), angle = 0, earthquake = False):
     """Draws a house with a roof, 4 windows, 3 garage doors, one door.  
    
    Parameters
@@ -94,8 +95,13 @@ def draw_house(params: Dict[str, Numeric],
         Bottom-left corner of the BASE of the house.
     params : Dict[str, Numeric]
         A dictionary of parameters specifying the dimensions of the house.
+    angle : int or float
+        The angle of the house.
+    earthquake : bool
+        If True, the house will be drawn with an earthquake effect.
     """
     #First, we compute the roof bottom left coordinates
+    turtle.right(30)
     roof_bottom_left = (
         start_coord[0] - (
                 params["roof_width"] - params["house_width"]
@@ -106,24 +112,21 @@ def draw_house(params: Dict[str, Numeric],
     # Draw the frame of the house
     frame.draw_base(
         start_coord[0], start_coord[1], params["house_height"],
-        params["house_width"]
-    )
+        params["house_width"], angle = angle)
     frame.draw_roof(
-        roof_bottom_left[0], roof_bottom_left[1], params["roof_width"]
-    )
+        roof_bottom_left[0], roof_bottom_left[1], params["roof_width"], angle = angle)
 
     # Draw a door
     doors.draw_door(
         start_coord[0] + params["door_left_offset"], start_coord[1],
-        params["door_height"]
-    )
+        params["door_height"], angle = angle, earthquake = earthquake)
 
     # Draw two garage doors
     coordinates_garage_doors = [(start_coord[0] + params["garage_1_left_offset"], start_coord[1]), 
                                 (start_coord[0] + params["garage_2_left_offset"], start_coord[1])]
     
     for x, y in coordinates_garage_doors:
-        doors.draw_garage_door(x, y, params["garage_door_height"])
+        doors.draw_garage_door(x, y, params["garage_door_height"], angle = angle, earthquake = earthquake)
    
     # Draw windows
     for i in range(1, 5):
@@ -131,7 +134,7 @@ def draw_house(params: Dict[str, Numeric],
         y = start_coord[1] +  params["window_{}_vertical_offset".format(i)]
         height = params["window_{}_height".format(i)]
         width = params["window_{}_width".format(i)]
-        windows.draw_window(x, y, height, width)
+        windows.draw_window(x, y, height, width, angle = angle)
 
     turtle.end_fill()
 
@@ -172,8 +175,17 @@ def create_scene(
             draw_house(params, (x, y))
     else :
         coordinates_x += [start_coord[0] + 1.2 * params["house_width"], start_coord[0] + 2.4 * params["house_width"]]
-        for x in coordinates_x:
+        for x in coordinates_x[:2]:
             draw_house(params, (x, y))
+        if (render_type == "before_earthquake") : 
+            draw_house(params, (coordinates_x[2], y))
+        else :
+            draw_house(params, (coordinates_x[2], y), angle = 2.8, earthquake = True)
+            turtle.color('green')
+            turtle.begin_fill()
+            draw_rectangle(coordinates_x[2], y, -params["house_height"], params["house_width"], 
+                           angle = 2.8)
+            turtle.end_fill()
 
     # Draw trees
     turtle.setheading(0)
@@ -198,10 +210,11 @@ def create_scene(
 if __name__ == "__main__":
     """Create the house scene.
     """
-    render_type = "before_earthquake"
+    render_type = "after_earthquake"
     turtle.Screen().screensize(SCREEN_DIM, SCREEN_DIM)
     turtle.setworldcoordinates(-SCREEN_DIM, -SCREEN_DIM, turtle.window_width() + SCREEN_DIM, turtle.window_height() + SCREEN_DIM)
     turtle.Screen().bgcolor("lightblue")
+    turtle.speed(10)
     params = read_from_param_file()
     create_scene(render_type, params)
     turtle.done()
