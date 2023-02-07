@@ -21,6 +21,7 @@ import src.doors as doors
 import src.windows as windows
 import src.tree_cloud as tree_cloud
 import src.frame as frame
+from src.util.shapes import *
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -111,23 +112,23 @@ def read_from_param_file(path: Optional[str] = "scene_params.txt") -> Dict[str, 
     return params
 
 
-def draw_house(
-    params: Dict[str, Numeric],
-    start_coord: Tuple[float, float] = (SCREEN_DIM / 3, SCREEN_DIM / 3),
-    scale: Numeric = 1,
-):
-    """Draws a house with a roof, 4 windows, 3 garage doors, one door.
-
-    Parameters
-     ----------
-     scale : scale of house (0 to 1)
-
-     start_coord : Tuple[float, float]
-         Bottom-left corner of the BASE of the house.
-     params : Dict[str, Numeric]
-         A dictionary of parameters specifying the dimensions of the house.
+def draw_house(params: Dict[str, Numeric],
+    start_coord: Tuple[float, float] = (SCREEN_DIM / 3, SCREEN_DIM / 3), scale: Numeric = 1, 
+    angle = 0, earthquake = False):
+    """Draws a house with a roof, 4 windows, 3 garage doors, one door.  
+   
+   Parameters
+    ----------
+    start_coord : Tuple[float, float]
+        Bottom-left corner of the BASE of the house.
+    params : Dict[str, Numeric]
+        A dictionary of parameters specifying the dimensions of the house.
+    scale : scale of house (0 to 1)
+    angle : int or float
+        The angle of the house.
+    earthquake : bool
+        If True, the house will be drawn with an earthquake effect.
     """
-
     for key in params:
         params[key] *= scale
 
@@ -138,11 +139,16 @@ def draw_house(
     )
 
     # Draw the frame of the house
-    frame.draw_base(start_coord[0], start_coord[1], params["house_height"], params["house_width"])
-    frame.draw_roof(roof_bottom_left[0], roof_bottom_left[1], params["roof_width"])
+    frame.draw_base(
+        start_coord[0], start_coord[1], params["house_height"],
+        params["house_width"], angle = angle)
+    frame.draw_roof(
+        roof_bottom_left[0], roof_bottom_left[1], params["roof_width"], angle = angle)
 
     # Draw a door
-    doors.draw_door(start_coord[0] + params["door_left_offset"], start_coord[1], params["door_height"])
+    doors.draw_door(
+        start_coord[0] + params["door_left_offset"], start_coord[1],
+        params["door_height"], angle = angle, earthquake = earthquake)
 
     # Draw two garage doors
     coordinates_garage_doors = [
@@ -151,7 +157,7 @@ def draw_house(
     ]
 
     for x, y in coordinates_garage_doors:
-        doors.draw_garage_door(x, y, params["garage_door_height"])
+        doors.draw_garage_door(x, y, params["garage_door_height"], angle = angle, earthquake = earthquake)
 
     # Draw windows
     for i in range(1, 5):
@@ -159,11 +165,13 @@ def draw_house(
         y = start_coord[1] + params["window_{}_vertical_offset".format(i)]
         height = params["window_{}_height".format(i)]
         width = params["window_{}_width".format(i)]
+        
         # Make two of the windows cracked only if there has been an earthquake
         if render_type == "with_earthquake" and i % 2 == 0:
-            windows.draw_window(x, y, height, width, crack=True)
+            windows.draw_window(x, y, height, width, angle = angle, crack=True)
         else:
             windows.draw_window(x, y, height, width)
+
     turtle.end_fill()
 
 
@@ -204,6 +212,7 @@ def create_scene(
 
     elif render_type == "without_earthquake":
         coordinates_x += [start_coord[0] + 1.2 * params["house_width"], start_coord[0] + 2.4 * params["house_width"]]
+        
         draw_house(params, (coordinates_x[0], y))
         draw_house(params, (coordinates_x[1], y), scale=0.9)
         draw_house(params, (coordinates_x[2], y))
@@ -214,9 +223,14 @@ def create_scene(
             start_coord[0] + 2.4 * params["house_width"],
         ]
 
-        draw_house(params, (coordinates_x[0], y))
-        draw_house(params, (coordinates_x[1], y), scale=0.9)
-        draw_house(params, (coordinates_x[2], y))
+        draw_house(params, (coordinates_x[0], y), earthquake = True)
+        draw_house(params, (coordinates_x[1], y), scale=0.9, earthquake = True)
+        draw_house(params, (coordinates_x[2], y), angle = angle, earthquake = True)
+        turtle.color('green')
+        turtle.begin_fill()
+        draw_rectangle(coordinates_x[2], y, -params["house_height"], params["house_width"], 
+                           angle = angle)
+        turtle.end_fill()
 
     else:
         raise Exception("Unknown render type for image")
@@ -247,12 +261,14 @@ def create_scene(
 
 if __name__ == "__main__":
     """Create the house scene."""
+    angle = 2.8
     render_type = args.render_type
     turtle.Screen().screensize(SCREEN_DIM, SCREEN_DIM)
     turtle.setworldcoordinates(
         -SCREEN_DIM, -SCREEN_DIM, turtle.window_width() + SCREEN_DIM, turtle.window_height() + SCREEN_DIM
     )
     turtle.Screen().bgcolor("lightblue")
+    turtle.speed(10)
     params = read_from_param_file()
-    create_scene(render_type, params)
+    create_scene(render_type, params, angle = 2.8)
     turtle.done()

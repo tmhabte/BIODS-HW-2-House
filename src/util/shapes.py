@@ -14,7 +14,7 @@ def fill_circle(radius, color):
     turtle.end_fill()
 
 
-def draw_rectangle(start_pos_x, start_pos_y, height, width):
+def draw_rectangle(start_pos_x, start_pos_y, height, width, angle=0):
     '''
     Draws a rectangle
     :param start_pos_x: x position to begin drawing (lower left corner)
@@ -26,7 +26,7 @@ def draw_rectangle(start_pos_x, start_pos_y, height, width):
     turtle.penup()
     turtle.setpos(start_pos_x, start_pos_y)
     turtle.pendown()
-    turtle.seth(0)
+    turtle.seth(angle)
     turtle.begin_fill()
     turtle.forward(width)
     turtle.left(90)

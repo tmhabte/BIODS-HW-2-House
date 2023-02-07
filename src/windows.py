@@ -18,7 +18,8 @@ def draw_window(
     width: float,
     height: float,
     color = 'white',
-    outline_color= 'black',
+    outline_color= 'black', 
+    angle = 0
     crack = False
 ):
     """Draw a window in a turtle scene.
@@ -37,6 +38,12 @@ def draw_window(
         Width of the window
     height : float
         Height of the window
+    color : str
+        Color of the window
+    outline_color : str 
+        Color of the outline of the window
+    angle : float   
+        Angle of the window
     crack : Boolean
         Whether or not to put a crack through the window
     """
@@ -45,7 +52,7 @@ def draw_window(
         center_height = start_pos_y + (height/2)
         turtle.penup()
         turtle.goto(start_pos_x, center_height)
-        turtle.setheading(RIGHT_DIRECTION)
+        turtle.setheading(RIGHT_DIRECTION + angle)
         turtle.pendown()
         turtle.forward(width)
         turtle.penup()
@@ -55,7 +62,7 @@ def draw_window(
         center_width = start_pos_x + (width/2)
         turtle.penup()
         turtle.goto(center_width, start_pos_y)
-        turtle.setheading(UP_DIRECTION)
+        turtle.setheading(UP_DIRECTION + angle)
         turtle.pendown()
         turtle.forward(height)
         turtle.penup()
@@ -73,7 +80,7 @@ def draw_window(
 
     turtle.color(outline_color, color)
     turtle.begin_fill()
-    draw_rectangle(start_pos_x, start_pos_y, height, width)
+    draw_rectangle(start_pos_x, start_pos_y, height, width, angle = angle)
     turtle.end_fill()
 
     draw_center_height()
