@@ -129,42 +129,43 @@ def draw_house(params: Dict[str, Numeric],
     earthquake : bool
         If True, the house will be drawn with an earthquake effect.
     """
-    for key in params:
-        params[key] *= scale
+    scaled_params = params.copy()
+    for key in scaled_params:
+        scaled_params[key] *= scale
 
     # First, we compute the roof bottom left coordinates
     roof_bottom_left = (
-        start_coord[0] - (params["roof_width"] - params["house_width"]) / 2,
-        start_coord[1] + params["house_height"],
+        start_coord[0] - (scaled_params["roof_width"] - scaled_params["house_width"]) / 2,
+        start_coord[1] + scaled_params["house_height"],
     )
 
     # Draw the frame of the house
     frame.draw_base(
-        start_coord[0], start_coord[1], params["house_height"],
-        params["house_width"], angle = angle)
+        start_coord[0], start_coord[1], scaled_params["house_height"],
+        scaled_params["house_width"], angle = angle)
     frame.draw_roof(
-        roof_bottom_left[0], roof_bottom_left[1], params["roof_width"], angle = angle)
+        roof_bottom_left[0], roof_bottom_left[1], scaled_params["roof_width"], angle = angle)
 
     # Draw a door
     doors.draw_door(
-        start_coord[0] + params["door_left_offset"], start_coord[1],
-        params["door_height"], angle = angle, earthquake = earthquake)
+        start_coord[0] + scaled_params["door_left_offset"], start_coord[1],
+        scaled_params["door_height"], angle = angle, earthquake = earthquake)
 
     # Draw two garage doors
     coordinates_garage_doors = [
-        (start_coord[0] + params["garage_1_left_offset"], start_coord[1]),
-        (start_coord[0] + params["garage_2_left_offset"], start_coord[1]),
+        (start_coord[0] + scaled_params["garage_1_left_offset"], start_coord[1]),
+        (start_coord[0] + scaled_params["garage_2_left_offset"], start_coord[1]),
     ]
 
     for x, y in coordinates_garage_doors:
-        doors.draw_garage_door(x, y, params["garage_door_height"], angle = angle, earthquake = earthquake)
+        doors.draw_garage_door(x, y, scaled_params["garage_door_height"], angle = angle, earthquake = earthquake)
 
     # Draw windows
     for i in range(1, 5):
-        x = start_coord[0] + params["window_{}_horizontal_offset".format(i)]
-        y = start_coord[1] + params["window_{}_vertical_offset".format(i)]
-        height = params["window_{}_height".format(i)]
-        width = params["window_{}_width".format(i)]
+        x = start_coord[0] + scaled_params["window_{}_horizontal_offset".format(i)]
+        y = start_coord[1] + scaled_params["window_{}_vertical_offset".format(i)]
+        height = scaled_params["window_{}_height".format(i)]
+        width = scaled_params["window_{}_width".format(i)]
         
         # Make two of the windows cracked only if there has been an earthquake
         if render_type == "with_earthquake" and i % 2 == 0:
@@ -214,8 +215,8 @@ def create_scene(
         coordinates_x += [start_coord[0] + 1.2 * params["house_width"], start_coord[0] + 2.4 * params["house_width"]]
         
         draw_house(params, (coordinates_x[0], y))
-        draw_house(params, (coordinates_x[1], y), scale=0.9)
-        draw_house(params, (coordinates_x[2], y))
+        draw_house(params, (coordinates_x[1], y), scale = 0.9)
+        draw_house(params, (coordinates_x[2], y), scale = 1)
     elif render_type == "with_earthquake":
         # DUPLICATED CODE -- better to change
         coordinates_x += [
