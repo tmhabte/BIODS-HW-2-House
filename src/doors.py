@@ -2,7 +2,7 @@ import turtle
 from .util.shapes import *
 
 
-def draw_door(height, scale = 0.4):
+def draw_door(start_pos_x, start_pos_y, height, scale = 0.4):
     '''
     Draws a door and doorknob
     :param start_pos_x: x position to begin drawing (lower left corner)
@@ -14,21 +14,17 @@ def draw_door(height, scale = 0.4):
     width = height * scale
     turtle.color('black', 'brown')
     turtle.begin_fill()
-    draw_rectangle(height, width)
+    draw_rectangle(start_pos_x, start_pos_y, height, width)
     turtle.end_fill()
     turtle.penup()
-    turtle.left(90)
-    turtle.forward(3*width/4)
-    turtle.left(90)
-    turtle.forward(height/2)
-    turtle.right(90)
+    turtle.setpos(start_pos_x+3*width/4, start_pos_y+height/2)
+    turtle.seth(0)
     turtle.pendown()
     turtle.color('black', 'gold')
     turtle.begin_fill()
     turtle.circle(width/8)
     turtle.end_fill()
     turtle.penup()
-    turtle.right(90)
 
 
 def draw_garage_lines(start_pos_x,start_pos_y, end_pos_x):
@@ -39,16 +35,9 @@ def draw_garage_lines(start_pos_x,start_pos_y, end_pos_x):
     :param end_pos_x: x position to end drawing
     :return: None- draws
     '''
-    current_pos_x = turtle.pos()[0]
-    current_pos_y = turtle.pos()[1]
-    turtle.forward(current_pos_y - start_pos_y)
-    turtle.left(90)
-    turtle.forward(start_pos_x - current_pos_x)
-    #turtle.setpos(start_pos_x, start_pos_y)
+    turtle.setpos(start_pos_x, start_pos_y)
     turtle.pendown()
-    turtle.forward(end_pos_x - start_pos_x)
-    #turtle.setpos(end_pos_x, start_pos_y)
-    turtle.right(90)
+    turtle.setpos(end_pos_x, start_pos_y)
     turtle.penup()
 
 

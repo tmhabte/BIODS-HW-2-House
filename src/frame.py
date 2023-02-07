@@ -15,7 +15,7 @@ import turtle
 from .util.shapes import draw_rectangle
 
 
-def draw_base(start_x, start_y, house_height, house_width, angle=0):
+def draw_base(start_x, start_y, house_height, house_width):
     """Draw the base of the house.
 
     Parameters
@@ -31,11 +31,11 @@ def draw_base(start_x, start_y, house_height, house_width, angle=0):
     """
     turtle.color('black', "lightgray")
     turtle.begin_fill()
-    draw_rectangle(start_x, start_y, house_height, house_width, tilt=angle)
+    draw_rectangle(start_x, start_y, house_height, house_width)
     turtle.end_fill()
 
 
-def draw_roof(start_pos_x, start_pos_y, roof_width, angle=0):
+def draw_roof(start_x, start_y, roof_width):
     """Draw the roof of the house.
 
     Notes
@@ -52,11 +52,11 @@ def draw_roof(start_pos_x, start_pos_y, roof_width, angle=0):
     roof_width : float
         Width of the roof of the house.
     """
-    turtle.goto(start_pos_x, start_pos_y)
-    turtle.seth(angle)
     roof_angled_dim = roof_width / 2 ** 0.5
     turtle.color('black', "brown")
+    turtle.setpos((start_x, start_y))
     turtle.begin_fill()
+    turtle.setheading(0)
     turtle.forward(roof_width)
     turtle.left(135)    # This angle will never change
     turtle.forward(roof_angled_dim)
